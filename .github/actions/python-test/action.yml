@@ -1,0 +1,16 @@
+name: "Python Test"
+description: "Runs tests using pytest"
+inputs:
+  python-version:
+    description: "Version of Python to use"
+    required: true
+    default: "3.8"
+runs:
+  using: "bash"
+  steps:
+    - name: Install Dependencies
+      run: |
+        pip install pytest
+    - name: Run Tests
+      run: |
+        pytest
