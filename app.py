@@ -37,7 +37,23 @@ class AudioApp(QWidget):  # Every widget we see is a QWidget
         self.setGeometry(240, 210, 600, 300)
 
     # Design
+    def initUI(self):
+        self.title = QLabel("Audio Adjuster")
+        self.file_list = QListWidget()
+        self.btn_opener = QPushButton("Choose a file")
+        self.btn_play = QPushButton("Play")
+        self.btn_pause = QPushButton("Pause")
+        self.btn_resume = QPushButton("Resume")
+        self.btn_reset = QPushButton("Reset")
 
+        self.slider = QSlider(Qt.Orientation.Horizontal)
+        self.slider.setMinimum(50)
+        self.slider.setMaximum(150)
+        self.slider.setValue(100)
+        self.slider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.slider.setTickInterval(10)
+
+        
 
     # Event Handler
 
