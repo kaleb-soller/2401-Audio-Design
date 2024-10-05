@@ -1,0 +1,41 @@
+# ./.github/actions/python-test/action.yml
+
+name: "Python Test"
+description: "Runs tests using pytest"
+
+inputs:
+  python-version:
+    description: "Version of Python to use"
+    required: true
+    default: "3.12"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Activate virtual environment
+      run: |
+        if [ ! -d ".venv" ]; then
+          python -m venv .venv
+        fi
+        source .venv/bin/activate
+      shell: bash
+
+    - name: Install dependencies
+      run: |
+        source .venv/bin/activate
+        pip install -r requirements.txt
+      shell: bash
+
+    - name: Run Tests
+      run: |
+        source .venv/bin/activate
+        pytest
+      shell: bash

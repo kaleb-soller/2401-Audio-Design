@@ -1,0 +1,65 @@
+# ./.github/workflows/ci.yml
+
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+      
+      - name: Upgrade pip
+        run: |
+          pip install --upgrade pip
+          
+      - name: Activate virtual environment (Windows)
+        run: |
+          if [ ! -d ".venv" ]; then
+            python -m venv .venv
+          fi
+          source .venv/bin/activate
+        shell: bash
+      
+      - name: Install Dependencies
+        run: |
+          source .venv/bin/activate
+          pip install -r requirements.txt
+          pip install pytest
+        shell: bash
+      
+      - name: Run Linter
+        uses: ./.github/actions/python-lint
+        with:
+          python-version: '3.12'
+
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Activate virtual environment
+        run: |
+          if [ ! -d ".venv" ]; then
+            python -m venv .venv
+          fi
+          source .venv/bin/activate
+        shell: bash
+      
+      - name: Run Tests
+        uses: ./.github/actions/python-test
+        with:
+          python-version: '3.12'

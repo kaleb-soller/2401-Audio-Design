@@ -1,0 +1,43 @@
+# ./.github/workflows/deploy.yml
+
+name: Deploy
+
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+      
+      - name: Activate virtual environment (Windows)
+        run: |
+          if [ ! -d ".venv" ]; then
+            python -m venv .venv
+          fi
+          source .venv/bin/activate
+        shell: bash
+
+      - name: Install Dependencies
+        run: |
+          source .venv/bin/activate
+          pip install -r requirements.txt
+          pip install pytest
+        shell: bash
+
+      - name: Deploy
+        run: |
+          # Add your deployment commands here
+          echo "Deploying to production..."
+        shell: bash
+
+

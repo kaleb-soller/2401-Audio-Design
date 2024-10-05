@@ -1,0 +1,7 @@
+src/__pycache__/
+src/.env
+.pytest_cache
+.vscode
+.DS_Store
+test_*.py
+.venv

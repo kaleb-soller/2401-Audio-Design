@@ -1,0 +1,43 @@
+# ./.github/actions/python-lint/action.yml
+
+name: "Python Lint"
+description: "Runs a linter on Python code"
+
+inputs:
+  python-version:
+    description: "Version of Python to use"
+    required: true
+    default: "3.12"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ inputs.python-version }}
+    
+    - name: Activate virtual environment
+      run: |
+        if [ ! -d ".venv" ]; then
+          python -m venv .venv
+        fi
+        source .venv/bin/activate
+      shell: bash
+
+    - name: Install Dependencies
+      run: |
+        source .venv/bin/activate
+        pip install -r requirements.txt
+        pip install flake8
+      shell: bash
+
+    - name: Run Linter
+      run: |
+        source .venv/bin/activate
+        flake8 --exclude .venv,src/libs,src/tests,src/logs,src/scripts
+      shell: bash
+
