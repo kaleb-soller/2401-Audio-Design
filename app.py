@@ -29,7 +29,17 @@ from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 class AudioApp(QWidget):  # Every widget we see is a QWidget
     def __init__(self):
         super().__init__()  # Activate the QWidget Superclass
+        self.settings()
 
+    # Settings
+    def settings(self):
+        self.setWindowTitle("Audio Adjuster")
+        self.setGeometry(240, 210, 600, 300)
+
+    # Design
+
+
+    # Event Handler
 
 if __name__ == "__main__":
     app = QApplication([])
