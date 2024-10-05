@@ -13,14 +13,14 @@ from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
     QPushButton,
-    Qlabel,
+    QLabel,
     QListWidget,
     QFileDialog,
     QSlider,
     QVBoxLayout,
     QHBoxLayout,
 )
-from PyQt6.Core import Qt, QTimer, QUrl
+from PyQt6.QtCore import Qt, QTimer, QUrl
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 
 
